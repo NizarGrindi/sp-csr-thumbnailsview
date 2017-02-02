@@ -21,7 +21,7 @@ function HeaderOverrideFun(ctx) {
     finalHeaderHtml += '<style type="text/css">';
     finalHeaderHtml += '    .ms-listviewtable thead tr { table-layout:fixed; display:table-row-group; float:left; } ';
     finalHeaderHtml += '    .tbTitle { margin-bottom: 5px; margin-top: 10px; } ';
-    finalHeaderHtml += '    .tbTrItem { table-layout:fixed; display:table-row-group; float:left; width: 315px; height: 300px !important; } ';
+    finalHeaderHtml += '    .tbTrItem { table-layout:fixed; display:table-row-group; float:left; height: 300px !important; } ';
     finalHeaderHtml += '    .tbTitle { text-overflow: ellipsis; overflow: hidden; white-space: nowrap; overflow: hidden; width: 300px; } ';
     finalHeaderHtml += '    .tbTdItem { width: 300px; } ';
     finalHeaderHtml += '</style>';
@@ -73,12 +73,18 @@ function ItemRenderCustom(renderCtx) {
         target = "_self";
     }
 
-    //EditListItems permissions
-    //if (HasRights(0x0, 0x800))
-    var showedit = true;
-    if (ctx.CurrentItem.PermMask == '0xb008431061') {
-        showedit = false;
-    }
+    //#region Enable item selection
+    ret.push('<td class="ms-cellStyleNonEditable ms-vb-itmcbx ms-vb-imgFirstCell" tabindex="0">');
+    ret.push('<div role="checkbox" class="s4-itm-cbx s4-itm-imgCbx" tabindex="-1" title="' + titleText + '" >');
+    ret.push('<span class="s4-itm-imgCbx-inner">');
+    ret.push('<span class="ms-selectitem-span">');
+    ret.push('<img class="ms-selectitem-icon" alt="" src="/_layouts/15/images/spcommon.png?rev=44">');
+    ret.push('</span>');
+    ret.push('</span>');
+    ret.push('</div>');
+    ret.push('</td>');
+    //#endregion
+
     ret.push('<td colspan="');
     ret.push(fields.length + 2);
     ret.push('" class="tbTdItem" >');
